@@ -19,7 +19,7 @@ namespace GerenciadorDeTarefas.Controllers
         private readonly ILogger<LoginController> _logger; //atributos privados sempre com underscore frente
 
         private readonly string loginTeste = "admin@admin.com";
-        private readonly string senhaTeste = "admin1234@";
+        private readonly string senhaTeste = "Admin1234@";
 
 
 
