@@ -10,5 +10,10 @@ namespace GerenciadorDeTarefas.Controllers
     [Authorize]
     public class BaseController: ControllerBase
     {
+        public BaseController()
+        {
+
+
+        }
     }
 }

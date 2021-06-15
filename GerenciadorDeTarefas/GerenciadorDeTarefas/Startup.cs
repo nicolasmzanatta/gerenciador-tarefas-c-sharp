@@ -1,4 +1,6 @@
 using GerenciadorDeTarefas.Models;
+using GerenciadorDeTarefas.Repository;
+using GerenciadorDeTarefas.Repository.Impl;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -31,7 +33,7 @@ namespace GerenciadorDeTarefas
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<GerenciadorDeTarefasContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefautConnection")));
+            services.AddDbContext<GerenciadorDeTarefasContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConection")));
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -58,6 +60,8 @@ namespace GerenciadorDeTarefas
             });
 
             services.AddCors();
+
+            services.AddScoped<IUsuarioRepository, UsuarioRepositoryImpl>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
