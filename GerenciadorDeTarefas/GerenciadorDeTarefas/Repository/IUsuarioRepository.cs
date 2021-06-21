@@ -10,6 +10,7 @@ namespace GerenciadorDeTarefas.Repository
     {
         public void Salvar(Usuario usuario);
         bool ExisteUsuarioPeloEmail(string email);
-        Usuario GetUsuarioByLoginSenha(string login, string v);
+        Usuario GetUsuarioByLoginSenha(string login, string senha);
+        Usuario GetById(int idUsuario);
     }
 }

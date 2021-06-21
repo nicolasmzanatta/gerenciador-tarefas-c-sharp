@@ -18,15 +18,12 @@ namespace GerenciadorDeTarefas.Controllers
     [Route("api/[controller]")]
     public class LoginController : BaseController
     {
-        private readonly ILogger<LoginController> _logger; //atributos privados sempre com underscore frente
-        private readonly IUsuarioRepository _usuarioRepository;
-            
+        private readonly ILogger<LoginController> _logger;
 
-        public LoginController(ILogger<LoginController> logger, 
-            IUsuarioRepository usuarioRepository)
+        public LoginController(ILogger<LoginController> logger,
+            IUsuarioRepository usuarioRepository) : base(usuarioRepository)
         {
             _logger = logger;
-            _usuarioRepository = usuarioRepository;
         }
 
         [HttpPost]
@@ -37,7 +34,7 @@ namespace GerenciadorDeTarefas.Controllers
             {
                 if (requisicao == null
                     || string.IsNullOrEmpty(requisicao.Login) || string.IsNullOrWhiteSpace(requisicao.Login)
-                    || string.IsNullOrEmpty(requisicao.Senha) || string.IsNullOrWhiteSpace(requisicao.Senha)) 
+                    || string.IsNullOrEmpty(requisicao.Senha) || string.IsNullOrWhiteSpace(requisicao.Senha))
                 {
                     return BadRequest(new ErroRespotaDto()
                     {
@@ -47,8 +44,7 @@ namespace GerenciadorDeTarefas.Controllers
                 }
 
                 var usuario = _usuarioRepository.GetUsuarioByLoginSenha(requisicao.Login, MD5Utils.GerarHashMD5(requisicao.Senha));
-
-                if(usuario == null)
+                if (usuario == null)
                 {
                     return BadRequest(new ErroRespotaDto()
                     {

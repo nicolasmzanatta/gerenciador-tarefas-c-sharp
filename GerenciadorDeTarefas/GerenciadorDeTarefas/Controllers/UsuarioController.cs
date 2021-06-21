@@ -1,7 +1,6 @@
 ﻿using GerenciadorDeTarefas.Dtos;
 using GerenciadorDeTarefas.Models;
 using GerenciadorDeTarefas.Repository;
-using GerenciadorDeTarefas.Repository.Impl;
 using GerenciadorDeTarefas.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -20,18 +19,15 @@ namespace GerenciadorDeTarefas.Controllers
     public class UsuarioController : BaseController
     {
         private readonly ILogger<UsuarioController> _logger;
-        private readonly IUsuarioRepository _usuarioRepository;
 
-        public UsuarioController(ILogger<UsuarioController> logger,
-            IUsuarioRepository usuarioRepository)
+        public UsuarioController(ILogger<UsuarioController> logger, IUsuarioRepository usuarioRepository) : base(usuarioRepository)
         {
             _logger = logger;
-            _usuarioRepository = usuarioRepository;
         }
 
         [HttpPost]
         [AllowAnonymous]
-        public IActionResult SalvarUsuario([FromBody]Usuario usuario)
+        public IActionResult SalvarUsuario([FromBody] Usuario usuario)
         {
             try
             {
@@ -43,7 +39,7 @@ namespace GerenciadorDeTarefas.Controllers
                 }
 
                 if (string.IsNullOrEmpty(usuario.Senha) || string.IsNullOrWhiteSpace(usuario.Senha)
-                   || usuario.Senha.Length < 4 && Regex.IsMatch(usuario.Senha, "[a-zA-Z0-9]+", RegexOptions.IgnoreCase))
+                    || usuario.Senha.Length < 4 && Regex.IsMatch(usuario.Senha, "[a-zA-Z0-9]+", RegexOptions.IgnoreCase))
                 {
                     erros.Add("Senha inválida");
                 }
@@ -55,11 +51,11 @@ namespace GerenciadorDeTarefas.Controllers
                     erros.Add("Email inválido");
                 }
 
-                if (_usuarioRepository.ExisteUsuarioPeloEmail(usuario.Email)) 
+                if (_usuarioRepository.ExisteUsuarioPeloEmail(usuario.Email))
                 {
                     erros.Add("Já existe uma conta com o email informado");
                 }
-                
+
                 if (erros.Count > 0)
                 {
                     return BadRequest(new ErroRespotaDto()
@@ -73,9 +69,9 @@ namespace GerenciadorDeTarefas.Controllers
                 usuario.Senha = MD5Utils.GerarHashMD5(usuario.Senha);
                 _usuarioRepository.Salvar(usuario);
 
-                return Ok(new { msg = "Usuário criado com sucesso" });
+                return Ok(new { msg = "Usuário Criado com sucesso" });
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 _logger.LogError("Ocorreu erro ao salvar usuário", e);
                 return StatusCode(StatusCodes.Status500InternalServerError, new ErroRespotaDto()
