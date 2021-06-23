@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GerenciadorDeTarefas.Migrations
 {
-    public partial class CriarTabelaTarefa1 : Migration
+    public partial class CriarTabelaTarefa : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

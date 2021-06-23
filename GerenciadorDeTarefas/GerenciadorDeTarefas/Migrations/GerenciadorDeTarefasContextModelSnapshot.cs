@@ -20,67 +20,67 @@ namespace GerenciadorDeTarefas.Migrations
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("GerenciadorDeTarefas.Models.Tarefa", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int")
-                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                b.Property<DateTime?>("DataConclusao")
-                    .HasColumnType("datetime2");
+                    b.Property<DateTime?>("DataConclusao")
+                        .HasColumnType("datetime2");
 
-                b.Property<DateTime>("DataPrevistaConclusao")
-                    .HasColumnType("datetime2");
+                    b.Property<DateTime>("DataPrevistaConclusao")
+                        .HasColumnType("datetime2");
 
-                b.Property<int>("IdUsuario")
-                    .HasColumnType("int");
+                    b.Property<int>("IdUsuario")
+                        .HasColumnType("int");
 
-                b.Property<string>("Nome")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Nome")
+                        .HasColumnType("nvarchar(max)");
 
-                b.HasKey("Id");
+                    b.HasKey("Id");
 
-                b.HasIndex("IdUsuario");
+                    b.HasIndex("IdUsuario");
 
-                b.ToTable("Tarefa");
-            });
+                    b.ToTable("Tarefa");
+                });
 
             modelBuilder.Entity("GerenciadorDeTarefas.Models.Usuario", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int")
-                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                b.Property<string>("Email")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("Nome")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Nome")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("Senha")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Senha")
+                        .HasColumnType("nvarchar(max)");
 
-                b.HasKey("Id");
+                    b.HasKey("Id");
 
-                b.ToTable("Usuario");
-            });
+                    b.ToTable("Usuario");
+                });
 
             modelBuilder.Entity("GerenciadorDeTarefas.Models.Tarefa", b =>
-            {
-                b.HasOne("GerenciadorDeTarefas.Models.Usuario", "usuario")
-                    .WithMany("Tarefas")
-                    .HasForeignKey("IdUsuario")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                {
+                    b.HasOne("GerenciadorDeTarefas.Models.Usuario", "usuario")
+                        .WithMany("Tarefas")
+                        .HasForeignKey("IdUsuario")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                b.Navigation("usuario");
-            });
+                    b.Navigation("usuario");
+                });
 
             modelBuilder.Entity("GerenciadorDeTarefas.Models.Usuario", b =>
-            {
-                b.Navigation("Tarefas");
-            });
+                {
+                    b.Navigation("Tarefas");
+                });
 #pragma warning restore 612, 618
         }
     }
